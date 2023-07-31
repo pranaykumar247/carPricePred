@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Analysis</title>
+    <style>
+        body {
+            background-color: #c0c0c0;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav {
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            height: 35px;
+            font-size: 20px;
+            font-weight: bold;
+            border: 1px solid #666;
+            border-radius: 5px;
+            padding: 5px;
+            color: #fff;
+            background-color: #333;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: #008b8b;
+            color: #fff;
+            font-size: 22px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: red;
+        }
+
+        .prediction-result {
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Predictive Analysis</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <div class="container">
+        <form action="{{ url_for('predict')}}" method="post">
+            <div class="form-group">
+                <label for="Year">Year</label>
+                <input id="Year" name="Year" type="number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Present_Price">What is the Showroom Price? (In lakhs)</label>
+                <input id="Present_Price" name="Present_Price" type="number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Kms_Driven">How Many Kilometers Driven?</label>
+                <input id="Kms_Driven" name="Kms_Driven" type="number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Owner">How much owners previously had the car (0 or 1 or 3)?</label>
+                <input id="Owner" name="Owner" type="number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Fuel_Type_Petrol">What Is the Fuel type?</label>
+                <select name="Fuel_Type_Petrol" id="Fuel_Type_Petrol" required>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="CNG">CNG</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Seller_Type_Individual">Are you a Dealer or Individual?</label>
+                <select name="Seller_Type_Individual" id="Seller_Type_Individual" required>
+                    <option value="Dealer">Dealer</option>
+                    <option value="Individual">Individual</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Transmission_Mannual">Transmission type</label>
+                <select name="Transmission_Mannual" id="Transmission_Mannual" required>
+                    <option value="Mannual">Manual Car</option>
+                    <option value="Automatic">Automatic Car</option>
+                </select>
+            </div>
+
+            <button class="btn-submit" type="submit">Calculate the Selling Price</button>
+        </form>
+
+        <div class="prediction-result">
+            {{ prediction_text }}
+        </div>
+    </div>
+</body>
+
+</html>
